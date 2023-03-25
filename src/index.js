@@ -1,7 +1,5 @@
-#!/usr/bin/env node
-
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const PROJECT_PATH = '';
 const TEMPLATES_PATH = path.join(__dirname, 'templates');
