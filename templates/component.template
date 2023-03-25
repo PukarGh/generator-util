@@ -1,0 +1,22 @@
+import { FunctionComponent } from 'react';
+import css from './{COMPONENT_NAME}.module.css';
+import classNames from 'classnames';
+
+export type {COMPONENT_NAME}Props = DefaultProps & {
+    /** A prop for {COMPONENT_NAME} */
+    myProp?: string;
+};
+
+const {COMPONENT_NAME}: FunctionComponent<{COMPONENT_NAME}Props> = (props) => {
+    const { myProp, className, dataTestId } = props;
+
+    const rootClasses = classNames(className, css.root);
+
+    return (
+        <div className={rootClasses} data-testid={dataTestId}>
+            {myProp}
+        </div>
+    );
+};
+
+export default {COMPONENT_NAME};

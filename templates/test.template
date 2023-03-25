@@ -1,0 +1,14 @@
+import { render, screen } from '@testing-library/react';
+import {COMPONENT_NAME} from './{COMPONENT_NAME}';
+import userEvent from '@testing-library/user-event';
+
+describe('{COMPONENT_NAME}', () => {
+    it('should render {COMPONENT_NAME} Component', () => {
+        const { container } = render(
+            <{COMPONENT_NAME} myProp={'My Value'} />
+        );
+
+        expect(container).toMatchSnapshot();
+        expect(screen.getByText('My Value')).toBeInTheDocument();
+    });
+});

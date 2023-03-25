@@ -1,0 +1,17 @@
+.root {
+    font-family: -apple-system, '.SFNSText-Regular', 'San Francisco', BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Helvetica, Arial, sans-serif;
+    direction: ltr;
+    letter-spacing: normal;
+    word-spacing: normal;
+    cursor: default;
+    white-space: normal;
+    text-transform: none;
+    text-align: left;
+    text-indent: 0;
+    margin: 0;
+    font-variant: none;
+    font-style: normal;
+    font-size: medium;
+}
+

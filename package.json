@@ -1,0 +1,10 @@
+{
+  "name": "generator-util",
+  "version": "0.0.1",
+  "description": "A util to generate components quickly using templates.",
+  "main": "index.js",
+  "repository": "https://github.com/PukarGh/generator-util.git",
+  "author": "PukarGh",
+  "license": "MIT",
+  "private": false
+}

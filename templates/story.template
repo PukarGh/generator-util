@@ -1,0 +1,27 @@
+import {COMPONENT_NAME}, { {COMPONENT_NAME}Props } from './{COMPONENT_NAME}';
+import { createMeta, createStoryFactory, cleanArgs } from '../../util/storybook';
+
+export default createMeta<{COMPONENT_NAME}Props>({
+    title: 'Components/{COMPONENT_NAME}',
+    component: {COMPONENT_NAME},
+    args: {
+        myProp: 'My Value',
+    },
+    parameters: {
+        design: {
+            type: 'figma',
+            url: 'https://www.figma.com',
+        },
+        docs: {
+            description: {
+                component: 'My special component that does something special.',
+            },
+        },
+    },
+});
+
+const {COMPONENT_NAME_CAMELCASE}Story = createStoryFactory<{COMPONENT_NAME}Props>((args) => {
+    return <{COMPONENT_NAME} {...cleanArgs(args)} />;
+});
+
+export const Default = {COMPONENT_NAME_CAMELCASE}Story();
