@@ -6,7 +6,6 @@ export const parser = args => {
     let i;
     for (i = 1; i < args.length; i++){
         const currentArg = args[i];
-        console.log(currentArg);
 
         if (!currentArg.startsWith('--')) continue;
 

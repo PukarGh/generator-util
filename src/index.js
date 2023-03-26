@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 import { parser } from './args';
 
 const TEMPLATE_TO_EXTENSION_MAPPING = {
