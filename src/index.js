@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const TEMPLATE_TO_EXTENSION_MAPPING = {
     'index': 'ts',
@@ -13,7 +13,7 @@ const TEMPLATE_TO_EXTENSION_MAPPING = {
 };
 const DEFAULT_CONFIG = {
     outputPath: 'src/components',
-    templatePath: 'src/templates'
+    templatePath: './templates'
 }
 
 const getPaths = () => {
@@ -28,7 +28,11 @@ const getPaths = () => {
     const config = { ...DEFAULT_CONFIG, ...userConfig };
 
     Object.entries(config).forEach(([key, value]) => {
-       config[key] = path.join(rootPath, `${value}`);
+        if (key === 'outputPath'){
+            config[key] = path.join(rootPath, `${value}`);
+        } else {
+            config[key] = path.join(userConfig[key] ? rootPath : __dirname, `${value}`);
+        }
     });
 
     return { ...config, rootPath };
