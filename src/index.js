@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+import { parser } from './args';
 
 const TEMPLATE_TO_EXTENSION_MAPPING = {
     'index': 'ts',
@@ -66,7 +67,8 @@ const replacePlaceholders = (template, mappings) => {
 
 (() => {
     const paths = getPaths();
-    const componentName = process.argv[2];
+    const args = parser(process.argv.slice(2));
+    const componentName = args.componentName;
 
     if (!componentName){
         console.error('\x1b[91m ERROR: No component name provided! \x1b[0m');
