@@ -1,6 +1,6 @@
 {
-  "name": "@pukar/generator-util",
-  "version": "0.0.3",
+  "name": "@pukargh/generator-util",
+  "version": "0.0.5",
   "description": "A util to generate components quickly using templates.",
   "main": "index.js",
   "repository": "https://github.com/PukarGh/generator-util.git",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "webpack build --config webpack.config.js",
     "build-watch": "webpack build --config webpack.config.js --watch",
-    "generate": "node ./build/bundle.js"
+    "generate": "node ./src/index.js"
   },
   "bin": {
     "generate": "./src/index.js"
@@ -18,5 +18,8 @@
   "devDependencies": {
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1"
-  }
+  },
+  "files": [
+    "build"
+  ]
 }
