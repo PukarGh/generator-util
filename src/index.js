@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-const PROJECT_PATH = '';
-const TEMPLATES_PATH = path.join(__dirname, 'templates');
-const OUTPUT_PATH = path.join('src', 'components');
 const TEMPLATE_TO_EXTENSION_MAPPING = {
     'index': 'ts',
     'component': 'tsx',
@@ -12,6 +9,29 @@ const TEMPLATE_TO_EXTENSION_MAPPING = {
     'styles': 'module.css',
     'test': 'test.tsx'
 };
+
+const DEFAULT_CONFIG = {
+    outputPath: 'src/components',
+    templatePath: 'src/templates'
+}
+
+const getPaths = () => {
+    const rootPath = process.cwd();
+    let userConfig = {};
+
+    const userConfigPath = path.join(rootPath, 'generator.config.json');
+    if (fs.existsSync(userConfigPath)) {
+        userConfig = JSON.parse(fs.readFileSync(userConfigPath, 'utf-8'));
+    }
+
+    const config = { ...DEFAULT_CONFIG, ...userConfig };
+
+    Object.entries(config).forEach(([key, value]) => {
+       config[key] = path.join(rootPath, `${value}`);
+    });
+
+    return { ...config, rootPath };
+}
 
 const toTitleCase = str => str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substring(1));
 
@@ -40,30 +60,21 @@ const replacePlaceholders = (template, mappings) => {
 }
 
 (() => {
-    let [componentName, projectPath] = process.argv.slice(2);
-    if (PROJECT_PATH){
-        projectPath = PROJECT_PATH;
-    }
-
-    if (!projectPath){
-        console.error('\x1b[91m ERROR: No project path provided! \x1b[0m');
-        console.log(' Usage:');
-        console.log('      node generate.js <component_name> [project_path]');
-        return 1;
-    }
+    const paths = getPaths();
+    const componentName = process.argv[2];
 
     if (!componentName){
         console.error('\x1b[91m ERROR: No component name provided! \x1b[0m');
         console.log(' Usage:');
-        console.log('      node generate.js <component_name>  [project_path]');
+        console.log('      generate <component_name>');
         return 1;
     }
 
 
-    console.log('\x1b[94m Reading Templates ... \x1b[0m');
     let templates;
+    console.log('\x1b[94m Reading Templates ... \x1b[0m');
     try {
-        templates = getTemplates(TEMPLATES_PATH);
+        templates = getTemplates(paths.templatePath);
     } catch (e){
         console.error('\x1b[91m ERROR: Cannot read templates! \x1b[0m');
         console.error(`\x1b[91m ${e.message}\x1b[0m`);
@@ -72,7 +83,7 @@ const replacePlaceholders = (template, mappings) => {
 
     const mappings = getMappings(componentName);
 
-    const directory = path.join(projectPath, OUTPUT_PATH, mappings['{COMPONENT_NAME}']);
+    const directory = path.join(paths.outputPath, mappings['{COMPONENT_NAME}']);
 
     console.log('\x1b[94m Creating Directory ... \x1b[0m');
     if (fs.existsSync(directory)){
@@ -81,7 +92,7 @@ const replacePlaceholders = (template, mappings) => {
     }
 
     try {
-        fs.mkdirSync(directory);
+        fs.mkdirSync(directory, {recursive: true});
     } catch (e){
         console.error('\x1b[91m ERROR: Cannot create output directory! \x1b[0m');
         console.error(`\x1b[91m ${e.message}\x1b[0m`);

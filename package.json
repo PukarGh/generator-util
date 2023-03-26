@@ -8,7 +8,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "webpack build --config webpack.config.js"
+    "build": "webpack build --config webpack.config.js",
+    "build-watch": "webpack build --config webpack.config.js --watch",
+    "generate": "node ./build/bundle.js"
   },
   "bin": {
     "generate": "./src/index.js"
