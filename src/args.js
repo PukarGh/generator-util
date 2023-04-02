@@ -1,10 +1,12 @@
 export const parser = args => {
-    let argList = {
-        'componentName' : args[0]
-    };
+    if (!args[0].startsWith('--')){
+        args[0] = `--componentName=${args[0]}`
+    }
+
+    let argList = {};
 
     let i;
-    for (i = 1; i < args.length; i++){
+    for (i = 0; i < args.length; i++){
         const currentArg = args[i];
 
         if (!currentArg.startsWith('--')) continue;
@@ -14,7 +16,7 @@ export const parser = args => {
             [argName, argValue] = currentArg.split('=');
         } else {
             argName = currentArg;
-            if (args[i + 1].startsWith('--')){
+            if (i + 1 === args.length || args[i + 1].startsWith('--')){
                 argValue = true;
             } else {
                 argValue = args[++i];

@@ -4,12 +4,20 @@ import fs from 'fs';
 import path from 'path';
 
 import { parser } from './args';
-import { getMappings, getPaths, getTemplates, replacePlaceholders } from './utils';
+import { copyRecursive } from './publish';
 import { TEMPLATE_TO_EXTENSION_MAPPING } from './config';
+import { getMappings, getPaths, getTemplates, replacePlaceholders } from './utils';
 
 (() => {
     const paths = getPaths();
     const args = parser(process.argv.slice(2));
+
+    if (args.publish){
+        const publishedTo = copyRecursive(args.publish);
+        console.log(`\x1b[94m Published Templates to ${publishedTo} \x1b[0m`);
+        return;
+    }
+
     const componentName = args.componentName;
 
     if (!componentName){
@@ -20,8 +28,8 @@ import { TEMPLATE_TO_EXTENSION_MAPPING } from './config';
     }
 
 
-    let templates;
     console.log('\x1b[94m Reading Templates ... \x1b[0m');
+    let templates;
     try {
         templates = getTemplates(paths.templatePath);
     } catch (e){
