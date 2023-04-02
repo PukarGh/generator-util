@@ -6,7 +6,8 @@ import {TEMPLATE_TO_EXTENSION_MAPPING} from './config';
 export const getTemplates = templatePath => {
     let templates = {};
 
-    const publishedTemplatePath = path.join(process.cwd(), 'templates')
+    const publishedTemplatePath = path.join(process.cwd(), 'templates');
+    console.log(publishedTemplatePath, fs.existsSync(publishedTemplatePath));
     if (fs.existsSync(publishedTemplatePath)){
         templatePath = publishedTemplatePath;
     }
