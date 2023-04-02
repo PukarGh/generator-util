@@ -6,6 +6,11 @@ import {TEMPLATE_TO_EXTENSION_MAPPING} from './config';
 export const getTemplates = templatePath => {
     let templates = {};
 
+    const publishedTemplatePath = path.join(process.cwd(), 'templates')
+    if (fs.existsSync(publishedTemplatePath)){
+        templatePath = publishedTemplatePath;
+    }
+
     Object.entries(TEMPLATE_TO_EXTENSION_MAPPING).forEach(([inputFile]) => {
         templates[inputFile] = fs.readFileSync(path.join(templatePath, `${inputFile}.template`), 'utf-8');
     });
