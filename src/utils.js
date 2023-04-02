@@ -1,28 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import {TEMPLATE_TO_EXTENSION_MAPPING, DEFAULT_CONFIG} from './config';
+import {TEMPLATE_TO_EXTENSION_MAPPING} from './config';
 
-export const getPaths = () => {
-    const rootPath = process.cwd();
-    let userConfig = {};
-
-    const userConfigPath = path.join(rootPath, 'generator.config.json');
-    if (fs.existsSync(userConfigPath)) {
-        userConfig = JSON.parse(fs.readFileSync(userConfigPath, 'utf-8'));
-    }
-
-    const config = { ...DEFAULT_CONFIG, ...userConfig };
-
-    Object.entries(config).forEach(([key, value]) => {
-        if (key === 'outputPath'){
-            config[key] = path.join(rootPath, `${value}`);
-        } else {
-            config[key] = path.join(userConfig[key] ? rootPath : __dirname, `${value}`);
-        }
-    });
-
-    return { ...config, rootPath };
-}
 
 export const getTemplates = templatePath => {
     let templates = {};
