@@ -21,6 +21,7 @@
     "webpack-cli": "^5.0.1"
   },
   "files": [
-    "build"
+    "build",
+    "README.md"
   ]
 }
